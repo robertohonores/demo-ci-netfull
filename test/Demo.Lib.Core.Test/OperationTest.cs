@@ -21,7 +21,7 @@ namespace Demo.Lib.Core.Test
         public void Multiply_WithValue_ShouldBeNumber()
         {
             var sut = new Operation();
-            sut.Add(2, 3).ShouldBe(6);
+            sut.Multiply(2, 3).ShouldBe(6);
         }
     }
 }
