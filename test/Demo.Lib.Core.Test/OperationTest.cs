@@ -16,5 +16,12 @@ namespace Demo.Lib.Core.Test
             var sut = new Operation();
             sut.Add(2, 3).ShouldBe(5);
         }
+
+        [Fact]
+        public void Multiply_WithValue_ShouldBeNumber()
+        {
+            var sut = new Operation();
+            sut.Add(2, 3).ShouldBe(6);
+        }
     }
 }
