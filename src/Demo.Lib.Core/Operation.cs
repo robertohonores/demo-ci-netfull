@@ -15,5 +15,10 @@ namespace Demo.Lib.Core
         {
             return x * y;
         }
+
+        public int Substract(int x, int y)
+        {
+            return x - y;
+        }
     }
 }
