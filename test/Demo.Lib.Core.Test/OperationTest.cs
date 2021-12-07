@@ -28,7 +28,7 @@ namespace Demo.Lib.Core.Test
         public void Multiply_WithValue_ShouldBeWrongNumber()
         {
             var sut = new Operation();
-            sut.Multiply(2, 3).ShouldBe(7);
+            sut.Multiply(2, 3).ShouldBe(6);
         }
     }
 }
