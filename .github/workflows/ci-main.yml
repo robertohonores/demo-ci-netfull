@@ -33,6 +33,8 @@ jobs:
         run: |
           msbuild.exe src\Demo.Lib.sln /p:platform="Any CPU" /p:configuration="Release"
         
-      - name: Run Tests
-        run: dotnet test src\Demo.Lib.sln /p:CollectCoverage=true
-        # run: vstest.console.exe .\tests\Sandbox.Tests\bin\Release\Sandbox.Tests.dll
+      - name: Run Tests for Core
+        run: dotnet test .\test\Demo.Lib.Core.Test\Demo.Lib.Core.Test.csproj /p:CollectCoverage=true /p:Threshold=80
+
+      - name: Run Tests for v7
+        run: dotnet test .\test\Demo.Lib.v7.Test\Demo.Lib.v7.Test.csproj /p:CollectCoverage=true /p:Threshold=80 /p:Exclude=[Demo.Lib.Core]*
