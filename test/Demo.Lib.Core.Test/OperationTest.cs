@@ -30,5 +30,12 @@ namespace Demo.Lib.Core.Test
             var sut = new Operation();
             sut.Multiply(2, 3).ShouldBe(6);
         }
+
+        [Fact]
+        public void Substract_WithValue_ShouldBe()
+        {
+            var sut = new Operation();
+            sut.Substract(2, 3).ShouldBe(-1);
+        }
     }
 }
