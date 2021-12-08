@@ -5,6 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Bob Honores</Authors>
     <Version>0.1.0</Version>
+    <RepositoryUrl>https://github.com/robertohonores/demo-ci-netfull</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
