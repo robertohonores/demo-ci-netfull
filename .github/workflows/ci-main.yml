@@ -8,7 +8,6 @@ env:
   v7_TEST_PROJECT_PATH: '.\test\Demo.Lib.v7.Test\Demo.Lib.v7.Test.csproj'
   CODE_COVERAGE_THRESHOLD: 80
   CORE_TEST_PROJECT_PATH: '.\test\Demo.Lib.Core.Test\Demo.Lib.Core.Test.csproj'
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PACKAGE_SOURCE: https://nuget.pkg.github.com/robertohonores/index.json
   SOLUTION_PATH: 'src\Demo.Lib.sln'
 
@@ -45,8 +44,8 @@ jobs:
         run: dotnet test ${{ env.v7_TEST_PROJECT_PATH }} /p:CollectCoverage=true /p:Threshold=${{ env.CODE_COVERAGE_THRESHOLD }} /p:Exclude=[Demo.Lib.Core]*
 
       - name: Push Core Package
-        run: dotnet nuget push src\Demo.Lib.Core\bin\Release\Demo.Lib.Core.0.1.0.nupkg --source $PACKAGE_SOURCE --api-key ${GITHUB_TOKEN}
+        run: dotnet nuget push src\Demo.Lib.Core\bin\Release\Demo.Lib.Core.0.1.0.nupkg --source $PACKAGE_SOURCE --api-key ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push Core Package
-        run: dotnet nuget push src\Demo.Lib.v7\bin\Release\Demo.Lib.v7.0.1.0.nupkg --source $PACKAGE_SOURCE --api-key ${GITHUB_TOKEN}
+        run: dotnet nuget push src\Demo.Lib.v7\bin\Release\Demo.Lib.v7.0.1.0.nupkg --source $PACKAGE_SOURCE --api-key ${{ secrets.GITHUB_TOKEN }}
 
