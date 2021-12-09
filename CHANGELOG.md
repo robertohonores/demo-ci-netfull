@@ -1,4 +1,7 @@
 # Change Log\n\nAll notable changes to this project will be documented in this file. See [versionize](https://github.com/saintedlama/versionize) for commit guidelines.\n
+<a name="0.2.1"></a>
+## [0.2.1](https://www.github.com/robertohonores/demo-ci-netfull/releases/tag/v0.2.1) (2021-12-9)
+
 <a name="0.2.0"></a>
 ## [0.2.0](https://www.github.com/robertohonores/demo-ci-netfull/releases/tag/v0.2.0) (2021-12-9)
 
