@@ -1,4 +1,11 @@
 # Change Log\n\nAll notable changes to this project will be documented in this file. See [versionize](https://github.com/saintedlama/versionize) for commit guidelines.\n
+<a name="0.2.0"></a>
+## [0.2.0](https://www.github.com/robertohonores/demo-ci-netfull/releases/tag/v0.2.0) (2021-12-9)
+
+### Features
+
+* add substract to extended operations ([76b5044](https://www.github.com/robertohonores/demo-ci-netfull/commit/76b504404420f8801995fc249a0b1d74218dce5b))
+
 <a name="0.1.0"></a>
 ## [0.1.0](https://www.github.com/robertohonores/demo-ci-netfull/releases/tag/v0.1.0) (2021-12-9)
 
