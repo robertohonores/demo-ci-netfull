@@ -46,6 +46,6 @@ jobs:
       - name: Push Core Package
         run: dotnet nuget push src\Demo.Lib.Core\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push Core Package
+      - name: Push v7 Package
         run: dotnet nuget push src\Demo.Lib.v7\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }}
 
