@@ -69,8 +69,8 @@ jobs:
       - name: Getting version from Git tag
         id: git-version-getter
         run: |
-          echo '::set-output name=tag-version::$(echo "$(git describe)")'
+          echo "::set-output name=tag-version::$(git describe)"
 
       - name: Printing version tag
         run: |
-          echo '${{ steps.git-version-getter.outputs.tag-version }}'
+          echo "${{ steps.git-version-getter.outputs.tag-version }}"
