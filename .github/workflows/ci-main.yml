@@ -23,8 +23,8 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.5
+      # - name: Setup NuGet
+      #   uses: NuGet/setup-nuget@v1.0.5
 
       # - name: Setup VSTest
       #   uses: darenm/Setup-VSTest@v1
@@ -49,12 +49,12 @@ jobs:
       - name: Navigate to Workspace
         run: cd $GITHUB_WORKSPACE
 
-      - name: Restore Packages
-        run: nuget restore ${{ env.SOLUTION_PATH }}
+      # - name: Restore Packages
+      #   run: nuget restore ${{ env.SOLUTION_PATH }}
 
       - name: Build Solution
         run: |
-          msbuild.exe ${{ env.SOLUTION_PATH }} /p:platform="Any CPU" /p:configuration="Release"
+          msbuild.exe ${{ env.SOLUTION_PATH }}  /p:platform="Any CPU" /p:configuration="Release" /t:restore,build /p:RestorePackagesConfig=true
 
       - name: Run Tests for Core
         run: dotnet test ${{ env.CORE_TEST_PROJECT_PATH }} /p:CollectCoverage=true /p:Threshold=${{ env.CODE_COVERAGE_THRESHOLD }}
