@@ -74,3 +74,10 @@ jobs:
       - name: Printing version tag
         run: |
           echo "${{ steps.git-version-getter.outputs.tag-version }}"
+
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "src/Demo.Lib.Core/bin/Release/*.nupkg,src/Demo.Lib.v7/bin/Release/*.nupkg"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.git-version-getter.outputs.tag-version }}
