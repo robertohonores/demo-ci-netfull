@@ -65,3 +65,12 @@ jobs:
 
       - name: Push v7 Package
         run: dotnet nuget push src\Demo.Lib.v7\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+
+      - name: Getting version from Git tag
+        id: version-getter
+        run: |
+          echo "::set-output tag-version=$(git describe)"
+
+      - name: Printing version tag
+        run: |
+          echo "${{ steps.version-getter.outputs.tag-version }}"
