@@ -32,7 +32,7 @@ jobs:
       - name: Getting repo
         uses: actions/checkout@v2
         with:
-          repository: ${{ github.reposity }}.git
+          repository: ${{ github.repository }}.git
           fetch-depth: 0
       
       - name: Executing Versionize
