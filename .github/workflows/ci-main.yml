@@ -17,10 +17,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
@@ -33,14 +29,17 @@ jobs:
       - name: Install Versionize
         run: dotnet tool install --global Versionize
 
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          versionize -w $GITHUB_WORKSPACE\src\
+          git push --follow-tags origin main
+
       - name: Navigate to Workspace
         run: cd $GITHUB_WORKSPACE
-
-      - name: Execute Versionize
-        run: versionize -w .\src\
-
-      - name: Include changes from Versionize
-        run: git push --follow-tags origin main
 
       - name: Restore Packages
         run: nuget restore ${{ env.SOLUTION_PATH }}
