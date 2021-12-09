@@ -9,6 +9,7 @@ env:
   v7_TEST_PROJECT_PATH: '.\test\Demo.Lib.v7.Test\Demo.Lib.v7.Test.csproj'
   CODE_COVERAGE_THRESHOLD: 80
   CORE_TEST_PROJECT_PATH: '.\test\Demo.Lib.Core.Test\Demo.Lib.Core.Test.csproj'
+  GITHUB_URL: 'https://github.com/'
   PACKAGE_SOURCE: https://nuget.pkg.github.com/robertohonores/index.json
   SOLUTION_PATH: 'src\Demo.Lib.sln'
 
@@ -17,48 +18,48 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
+      # - name: Setup MSBuild
+      #   uses: microsoft/setup-msbuild@v1
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.5
+      # - name: Setup NuGet
+      #   uses: NuGet/setup-nuget@v1.0.5
 
-      - name: Setup VSTest
-        uses: darenm/Setup-VSTest@v1
+      # - name: Setup VSTest
+      #   uses: darenm/Setup-VSTest@v1
 
-      - name: Install Versionize
-        run: dotnet tool install --global Versionize
+      # - name: Install Versionize
+      #   run: dotnet tool install --global Versionize
 
       - name: Getting repo
         uses: actions/checkout@v2
         with:
-          # repository: ${{ github.repository }}.git
           fetch-depth: 0
 
       - name: Executing Versionize
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git remote set-url origin ${{ env.GITHUB_URL }}${{ github.repository }}.git
           git config --list
 
       - name: Navigate to Workspace
         run: cd $GITHUB_WORKSPACE
 
-      - name: Restore Packages
-        run: nuget restore ${{ env.SOLUTION_PATH }}
+      # - name: Restore Packages
+      #   run: nuget restore ${{ env.SOLUTION_PATH }}
 
-      - name: Build Solution
-        run: |
-          msbuild.exe ${{ env.SOLUTION_PATH }} /p:platform="Any CPU" /p:configuration="Release"
+      # - name: Build Solution
+      #   run: |
+      #     msbuild.exe ${{ env.SOLUTION_PATH }} /p:platform="Any CPU" /p:configuration="Release"
 
-      - name: Run Tests for Core
-        run: dotnet test ${{ env.CORE_TEST_PROJECT_PATH }} /p:CollectCoverage=true /p:Threshold=${{ env.CODE_COVERAGE_THRESHOLD }}
+      # - name: Run Tests for Core
+      #   run: dotnet test ${{ env.CORE_TEST_PROJECT_PATH }} /p:CollectCoverage=true /p:Threshold=${{ env.CODE_COVERAGE_THRESHOLD }}
 
-      - name: Run Tests for v7
-        run: dotnet test ${{ env.v7_TEST_PROJECT_PATH }} /p:CollectCoverage=true /p:Threshold=${{ env.CODE_COVERAGE_THRESHOLD }} /p:Exclude=[Demo.Lib.Core]*
+      # - name: Run Tests for v7
+      #   run: dotnet test ${{ env.v7_TEST_PROJECT_PATH }} /p:CollectCoverage=true /p:Threshold=${{ env.CODE_COVERAGE_THRESHOLD }} /p:Exclude=[Demo.Lib.Core]*
 
-      - name: Push Core Package
-        run: dotnet nuget push src\Demo.Lib.Core\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+      # - name: Push Core Package
+      #   run: dotnet nuget push src\Demo.Lib.Core\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
 
-      - name: Push v7 Package
-        run: dotnet nuget push src\Demo.Lib.v7\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+      # - name: Push v7 Package
+      #   run: dotnet nuget push src\Demo.Lib.v7\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
