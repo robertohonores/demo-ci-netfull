@@ -12,5 +12,10 @@ namespace Demo.Lib.v7
         {
             return x + y;
         }
+
+        public decimal Multiply(decimal x, decimal y)
+        {
+            return x * y;
+        }
     } 
 }
