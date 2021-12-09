@@ -29,10 +29,12 @@ jobs:
       - name: Install Versionize
         run: dotnet tool install --global Versionize
 
-      - name: Getting repo & executing versionize
+      - name: Getting repo
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      
+      - name: Executing Versionize
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
