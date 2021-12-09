@@ -29,13 +29,14 @@ jobs:
       - name: Install Versionize
         run: dotnet tool install --global Versionize
 
-      - uses: actions/checkout@v2
+      - name: Getting repo & executing versionize
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - run: |
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          versionize -w $GITHUB_WORKSPACE\src\
+          versionize -w ${{ github.workspace }}\src\
           git push --follow-tags origin main
 
       - name: Navigate to Workspace
