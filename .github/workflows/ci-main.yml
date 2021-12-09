@@ -1,8 +1,9 @@
 name: Build, Test, and Push (main)
 
-on:  
+on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 env:
   v7_TEST_PROJECT_PATH: '.\test\Demo.Lib.v7.Test\Demo.Lib.v7.Test.csproj'
@@ -11,24 +12,33 @@ env:
   PACKAGE_SOURCE: https://nuget.pkg.github.com/robertohonores/index.json
   SOLUTION_PATH: 'src\Demo.Lib.sln'
 
-jobs:  
+jobs:
   build:
     runs-on: windows-latest
-    
-    steps:      
+
+    steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
-        
+
       - name: Setup VSTest
         uses: darenm/Setup-VSTest@v1
 
+      - name: Install Versionize
+        run: dotnet tool install --global Versionize
+
       - name: Navigate to Workspace
         run: cd $GITHUB_WORKSPACE
+
+      - name: Execute Versionize
+        run: versionize -w .\src\
+
+      - name: Include changes from Versionize
+        run: git push --follow-tags origin main
 
       - name: Restore Packages
         run: nuget restore ${{ env.SOLUTION_PATH }}
@@ -36,7 +46,7 @@ jobs:
       - name: Build Solution
         run: |
           msbuild.exe ${{ env.SOLUTION_PATH }} /p:platform="Any CPU" /p:configuration="Release"
-        
+
       - name: Run Tests for Core
         run: dotnet test ${{ env.CORE_TEST_PROJECT_PATH }} /p:CollectCoverage=true /p:Threshold=${{ env.CODE_COVERAGE_THRESHOLD }}
 
@@ -44,8 +54,7 @@ jobs:
         run: dotnet test ${{ env.v7_TEST_PROJECT_PATH }} /p:CollectCoverage=true /p:Threshold=${{ env.CODE_COVERAGE_THRESHOLD }} /p:Exclude=[Demo.Lib.Core]*
 
       - name: Push Core Package
-        run: dotnet nuget push src\Demo.Lib.Core\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push src\Demo.Lib.Core\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
 
       - name: Push v7 Package
-        run: dotnet nuget push src\Demo.Lib.v7\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }}
-
+        run: dotnet nuget push src\Demo.Lib.v7\bin\Release\*.nupkg --source ${{ env.PACKAGE_SOURCE }} --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
