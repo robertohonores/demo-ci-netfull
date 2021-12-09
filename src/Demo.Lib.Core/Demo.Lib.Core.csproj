@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Bob Honores</Authors>
-    <Version>0.2.8</Version>
+    <Version>0.2.9</Version>
     <RepositoryUrl>https://github.com/robertohonores/demo-ci-netfull</RepositoryUrl>
   </PropertyGroup>
 
