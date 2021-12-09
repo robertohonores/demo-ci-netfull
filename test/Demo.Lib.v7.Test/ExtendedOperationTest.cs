@@ -24,5 +24,12 @@ namespace Demo.Lib.v7.Test
             var sut = new ExtendedOperation();
             sut.Multiply(2.2m, 3).ShouldBe(6.6m);
         }
+
+        [Fact]
+        public void Substract_WithValue_ShouldBe()
+        {
+            var sut = new ExtendedOperation();
+            sut.Substract(2.2m, 3).ShouldBe(-0.8m);
+        }
     }
 }
