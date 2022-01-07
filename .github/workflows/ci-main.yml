@@ -37,12 +37,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      # - name: Executing Versionize
+      #   run: |
+      #     git config user.name github-actions
+      #     git config user.email github-actions@github.com
+      #     git remote set-url origin ${{ env.GITHUB_URL }}${{ github.repository }}.git
+      #     git config --list
+      #     versionize -w ${{ github.workspace }}\src\
+      #     git push --follow-tags origin main
       - name: Executing Versionize
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
           git remote set-url origin ${{ env.GITHUB_URL }}${{ github.repository }}.git
-          git config --list
           versionize -w ${{ github.workspace }}\src\
           git push --follow-tags origin main
 
